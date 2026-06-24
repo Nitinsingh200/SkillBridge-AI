@@ -24,18 +24,19 @@ export async function register({ username, email, password }) {
 }
 
 export async function login({ email, password }) {
-    try {
-        const response = await api.post("/api/auth/login", {
-            email,
-            password
-        });
 
-        return response.data;
+    try {
+
+        const response = await api.post("/api/auth/login", {
+            email, password
+        })
+
+        return response.data
+
     } catch (err) {
-        console.log("Status:", err.response?.status);
-        console.log("Data:", err.response?.data);
-        throw err;
+        console.log(err)
     }
+
 }
 
 export async function logout() {

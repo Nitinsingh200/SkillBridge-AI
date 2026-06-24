@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+
+
 const technicalQuestionSchema = new mongoose.Schema({
     question: {
         type: String,
@@ -62,7 +64,6 @@ const preparationPlanSchema = new mongoose.Schema({
     } ]
 })
 
-
 const interviewReportSchema = new mongoose.Schema({
     jobDescription: {
         type: String,
@@ -87,14 +88,14 @@ const interviewReportSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"
     },
-    // title: {
-    //     type: String,
-    //     required: [ true, "Job title is required" ]
-    // }
+    title: {
+        type: String,
+        required: [ true, "Job title is required" ]
+    }
 }, {
     timestamps: true
 })
- 
+
 
 const interviewReportModel = mongoose.model("InterviewReport", interviewReportSchema);
 
