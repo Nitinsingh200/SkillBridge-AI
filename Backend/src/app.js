@@ -10,12 +10,33 @@ app.use(cookieParser())
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:3000",
+    "https://skillbridge-ai-7.onrender.com",
     process.env.FRONTEND_URL
 ].filter(Boolean)
 
+const isAllowedOrigin = (origin) => {
+    if (!origin) return true
+
+    try {
+        const hostname = new URL(origin).hostname
+        return hostname === "localhost" || hostname.endsWith(".onrender.com")
+    } catch (error) {
+        return false
+    }
+}
+
 app.use(cors({
-    origin: allowedOrigins,
-    credentials: true
+    origin: (origin, callback) => {
+        if (!origin || isAllowedOrigin(origin)) {
+            callback(null, true)
+            return
+        }
+
+        callback(new Error("Not allowed by CORS"))
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
 }))
 
 /* require all the routes here */
